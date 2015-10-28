@@ -21,6 +21,18 @@ public class TmpInitializer implements WebApplicationInitializer {
  
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
+        
+        AnnotationConfigWebApplicationContext ctx_swagger = new AnnotationConfigWebApplicationContext();
+        ctx.register(SpringfoxConfiguration.class);
+        ctx.setServletContext(container);
+ 
+        ServletRegistration.Dynamic servlet_swagger = container.addServlet(
+                "springfox", new DispatcherServlet(ctx_swagger));
+ 
+        servlet_swagger.setLoadOnStartup(2);
+        servlet_swagger.addMapping("/swagger/*");
+        
+        
     }
  
 }
