@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
 @RestController
 public class GreetingController {
 
@@ -17,7 +19,10 @@ public class GreetingController {
     @RequestMapping("/greeting")
     @ApiOperation(value="Apik greetuings",notes = "notatka", response=Greetings.class)
     public Greetings greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greetings(counter.incrementAndGet(),
+        Greetings g = new Greetings(counter.incrementAndGet(),
                             String.format(template, name));
+        g.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
+        return g;
+        
     }
 }
