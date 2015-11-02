@@ -1,16 +1,22 @@
 package hello;
 
-public class Greetings {
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Greetings extends ResourceSupport {
 
     private final long id;
     private final String content;
 
-    public Greetings(long id, String content) {
+    @JsonCreator
+    public Greetings(@JsonProperty("id") long id, @JsonProperty("content") String content) {
         this.id = id;
         this.content = content;
     }
 
-    public long getId() {
+    public long getIdentity() {
         return id;
     }
 
