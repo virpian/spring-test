@@ -26,6 +26,7 @@
 			<artifactId>spring-core</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
@@ -148,7 +149,29 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 
+		<!-- jdbc -->
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		
+		<!--  
+		C:\projects-tmp\jdbc\sqljdbc_6.0\enu>mvn install:install-file -Dfile=sqljdbc42.j
+ar -DgroupId=com.microsoft.sqlserver -DartifactId=sqljdbc42 -Dversion=6.0 -Dpack
+aging=jar
+		 -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc42</artifactId>
+			<version>6.0</version>
+		</dependency>
 	</dependencies>
 
 

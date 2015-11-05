@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"hello" , "nmd", "configuration"})
+@ComponentScan(basePackages = {"hello" , "nmd", "configuration", "service", "nmd.dao"})
 public class TmpConfiguration extends WebMvcConfigurerAdapter{
 	 @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
