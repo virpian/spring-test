@@ -3,9 +3,10 @@ package configuration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
- 
+
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
  
 public class TmpInitializer implements WebApplicationInitializer {
@@ -13,7 +14,7 @@ public class TmpInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext container) throws ServletException {
  
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(TmpConfiguration.class);
+        ctx.register(TmpConfiguration.class, RestSecurityConfiguration.class, SpringfoxConfiguration.class);
         ctx.setServletContext(container);
  
         ServletRegistration.Dynamic servlet = container.addServlet(
@@ -22,7 +23,7 @@ public class TmpInitializer implements WebApplicationInitializer {
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/");
         
-        AnnotationConfigWebApplicationContext ctx_swagger = new AnnotationConfigWebApplicationContext();
+       /* AnnotationConfigWebApplicationContext ctx_swagger = new AnnotationConfigWebApplicationContext();
         ctx.register(SpringfoxConfiguration.class);
         ctx.setServletContext(container);
  
@@ -30,9 +31,17 @@ public class TmpInitializer implements WebApplicationInitializer {
                 "springfox", new DispatcherServlet(ctx_swagger));
  
         servlet_swagger.setLoadOnStartup(2);
-        servlet_swagger.addMapping("/swagger/*");
+        servlet_swagger.addMapping("/swagger/*");*/
         
+       container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain")        		
+       	).addMappingForUrlPatterns(null, false, "/*");        
         
     }
+    
+    
+    
+    
+    
+    
  
 }
