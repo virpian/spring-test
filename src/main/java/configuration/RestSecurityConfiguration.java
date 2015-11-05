@@ -34,6 +34,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	        http.csrf().disable();
 	       // http.authenticationProvider(new BasicAuthen)
 	        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+	        http.antMatcher("/**").httpBasic();
 	      //http.formLogin().successHandler(authenticationSuccessHandler);
 	      //  http.formLogin().failureHandler(authenticationFailureHandler);
 	    }
