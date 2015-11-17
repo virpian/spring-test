@@ -1,4 +1,4 @@
-package nmd.controllers;
+package onwelo.skel.controllers;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.ListBlobItem;
 
-import nmd.infrastructure.StorageFactory;
+import onwelo.skel.infrastructure.StorageFactory;
 
 @RestController
 @RequestMapping("/blob")

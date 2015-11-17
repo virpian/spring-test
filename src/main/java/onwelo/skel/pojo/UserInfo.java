@@ -1,4 +1,4 @@
-package nmd.pojo;
+package onwelo.skel.pojo;
 
 public class UserInfo {
 	private String username;

@@ -1,6 +1,8 @@
-package nmd.dao;
+package onwelo.skel.dao;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,9 @@ import com.microsoft.azure.documentdb.DocumentClientException;
 import com.microsoft.azure.documentdb.DocumentCollection;
 import com.microsoft.azure.documentdb.RequestOptions;
 
-import nmd.infrastructure.DocumentClientFactory;
-import nmd.pojo.TodoItem;
+import onwelo.skel.exceptions.InternalErrorException;
+import onwelo.skel.infrastructure.DocumentClientFactory;
+import onwelo.skel.pojo.TodoItem;
 
 @Component
 public class DocDbDao implements TodoDao {
@@ -121,7 +124,7 @@ public class DocDbDao implements TodoDao {
     private static ObjectReader or = new ObjectMapper().reader().withType( TodoItem.class);
     
     @Override
-    public TodoItem createTodoItem(TodoItem todoItem) {
+    public TodoItem createTodoItem(TodoItem todoItem) throws InternalErrorException {
         // Serialize the TodoItem as a JSON Document.
     	
         Document todoItemDocument = null;//specjalnie na razie
@@ -148,8 +151,7 @@ public class DocDbDao implements TodoDao {
                     getTodoCollection().getSelfLink(), todoItemDocument, null,
                     false).getResource();
         } catch (DocumentClientException e) {
-            e.printStackTrace();
-            return null;
+            throw new InternalErrorException("Saving in DB failed");
         }
         
         TodoItem ti = null;;
@@ -185,7 +187,7 @@ public class DocDbDao implements TodoDao {
     public TodoItem readTodoItem(String id) {
         // Retrieve the document by id using our helper method.
         Document todoItemDocument = getDocumentById(id);
-
+        
         if (todoItemDocument != null) {
             // De-serialize the document in to a TodoItem.
             try {
@@ -198,7 +200,7 @@ public class DocDbDao implements TodoDao {
 				e.printStackTrace();
 			}
         } else {
-            return null;
+           return null;
         }
         return null;
         
@@ -210,11 +212,20 @@ public class DocDbDao implements TodoDao {
         List<TodoItem> todoItems = new ArrayList<TodoItem>();
 
         // Retrieve the TodoItem documents
-        List<Document> documentList = documentClient
+        
+		LocalTime d1= LocalTime.now();
+		
+		List<Document> documentList = documentClient
                 .queryDocuments(getTodoCollection().getSelfLink(),
                         "SELECT * FROM root r WHERE r.entityType = 'todoItem'",
                         null).getQueryIterable().toList();
 
+		LocalTime d2 = LocalTime.now();
+		Duration d = Duration.between(d1, d2);
+	//	Object p = pjp.getThis();
+		
+		System.out.println("Database query executed in  "+d.getNano()/1000000 + " ms" );
+        
         // De-serialize the documents in to TodoItems.
         for (Document todoItemDocument : documentList) {
             try {

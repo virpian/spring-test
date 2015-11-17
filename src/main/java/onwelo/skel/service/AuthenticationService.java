@@ -1,4 +1,4 @@
-package service;
+package onwelo.skel.service;
 
 import java.util.Arrays;
 
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import nmd.dao.UserDao;
-import nmd.pojo.UserInfo;
+import onwelo.skel.dao.UserDao;
+import onwelo.skel.pojo.UserInfo;
 @Service
 public class AuthenticationService implements UserDetailsService {
 	@Autowired
@@ -26,4 +26,8 @@ public class AuthenticationService implements UserDetailsService {
 				userInfo.getPassword(), Arrays.asList(authority));
 		return userDetails;
 	}
+	
+	
+	
+	
 } 

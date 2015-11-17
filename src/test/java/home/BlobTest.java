@@ -14,7 +14,7 @@ import com.microsoft.azure.storage.blob.BlobContainerPublicAccessType;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
-import nmd.infrastructure.StorageFactory;
+import onwelo.skel.infrastructure.StorageFactory;
 
 public class BlobTest {
 

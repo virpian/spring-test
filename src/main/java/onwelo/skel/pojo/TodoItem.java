@@ -1,4 +1,4 @@
-package nmd.pojo;
+package onwelo.skel.pojo;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -41,6 +41,13 @@ public class TodoItem {
 		return name;
 	}
 	public void setName(String name) {
+		this.name = name;
+	}
+	public TodoItem(String category, boolean complete, String id, String name) {
+		super();
+		this.category = category;
+		this.complete = complete;
+		this.id = id;
 		this.name = name;
 	}
 }

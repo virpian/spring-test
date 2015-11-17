@@ -1,7 +1,7 @@
-package nmd.infrastructure;
+package onwelo.skel.infrastructure;
 
-import nmd.dao.DocDbDao;
-import nmd.dao.TodoDao;
+import onwelo.skel.dao.DocDbDao;
+import onwelo.skel.dao.TodoDao;
 
 public class TodoDaoFactory {
 

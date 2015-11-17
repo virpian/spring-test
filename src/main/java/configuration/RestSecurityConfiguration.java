@@ -14,9 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-
-import service.AuthenticationService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,26 +26,21 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private RESTAuthenticationEntryPoint authenticationEntryPoint;
-	@Autowired
+	/*@Autowired
 	private RESTAuthenticationFailureHandler authenticationFailureHandler;
 	@Autowired
 	private RESTAuthenticationSuccessHandler authenticationSuccessHandler;
-
+*/
 	@Autowired
-	private AuthenticationService authenticationService;
+	private UserDetailsService authenticationService;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
-		
-		BasePasswordEncoder pe = new ShaPasswordEncoder();
-		auth.userDetailsService(authenticationService).passwordEncoder(pe);
-		
-		//.jdbcAuthentication().withDefaultSchema().dataSource(dataSource)
-				//.usersByUsernameQuery("select username,password, enabled from users where username=?")
-				//.authoritiesByUsernameQuery("select username, role from user_roles where username=?");
-		;
-
-		// inMemoryAuthentication()
+		BasePasswordEncoder pe = new ShaPasswordEncoder();	
+		auth.userDetailsService(authenticationService).passwordEncoder(pe);	
+		//ponizej na wypadek jakis testow itp
+		//auth.
+		// inMemoryAuthentication() 
 		// .withUser("user").password("password").roles("rola");
 	}
 
@@ -59,12 +52,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/**").httpBasic();
 		// http.formLogin().successHandler(authenticationSuccessHandler);
 		// http.formLogin().failureHandler(authenticationFailureHandler);
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // po
-																							// co
-																							// nam
-																							// sesje
-																							// w
-																							// rest?;>
+		//http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
 	}
 
 	@Bean
